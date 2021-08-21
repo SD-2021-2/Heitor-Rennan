@@ -11,10 +11,10 @@ import org.json.JSONObject;
 public class ex3 {
 	public static void main(String[] args) throws IOException {
 		
-            ServerSocket serverSocket = new ServerSocket(6565);
-            Socket socket;
-            
-			System.out.println("Waiting connections");
+        ServerSocket serverSocket = new ServerSocket(6565);
+    	Socket socket;
+         
+		System.out.println("Waiting connections");
 		
 		while(true){
 			socket = null;

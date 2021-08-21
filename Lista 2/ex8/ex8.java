@@ -13,16 +13,16 @@ public class ex8 {
 		ServerSocket serverSocket = new ServerSocket(6565);
 		Socket socket;
                 
-                System.out.println("Waiting Connections");
+        System.out.println("Waiting Connections");
 		
 		while(true){
                     
-                    socket = null;
-                    socket = serverSocket.accept(); 
-                    System.out.println("Conexao realizada!");	
-                    new Ex8(socket).start();
+            socket = null;
+            socket = serverSocket.accept(); 
+            System.out.println("Conexao realizada!");	
+            new Ex8(socket).start();
 		
-                }		
+        }		
     }
         
 }

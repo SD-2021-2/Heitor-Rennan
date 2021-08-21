@@ -10,19 +10,19 @@ import org.json.JSONObject;
 
 public class ex7 {
 	public static void main(String[] args) throws IOException {
-            ServerSocket serverSocket = new ServerSocket(6565);
-            Socket socket;
-                
-            System.out.println("Waiting Connextions");
+        ServerSocket serverSocket = new ServerSocket(6565);
+        Socket socket;
+            
+        System.out.println("Waiting Connextions");
 		
 		
-            while(true){
-		socket = null;
-		socket = serverSocket.accept(); 
-		System.out.println("Conexao aceita");
+    	while(true){
+			socket = null;
+			socket = serverSocket.accept(); 
+			System.out.println("Conexao aceita");
 			
-		new Ex7(socket).start();
-            }		
+			new Ex7(socket).start();
+        }		
     }
 }
 
@@ -44,12 +44,12 @@ class Ex7 extends Thread {
 
 				funcionario.age = json.getInt("idade");
 				funcionario.time = json.getInt("tempo");
-					
+
 				json.put("aposentado", funcionario.podeAposentar());
-					
+
 				PrintStream resposta = new PrintStream(thread.getOutputStream());
 				resposta.println(json.toString());
-					
+
 				thread.close();
 		
                 System.out.println("Conexao finalizada!");

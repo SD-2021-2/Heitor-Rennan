@@ -11,9 +11,9 @@ import org.json.JSONObject;
 public class ex2 {
 	public static void main(String[] args) throws IOException {
 		
-            ServerSocket serverSocket = new ServerSocket(6565);
-            System.out.println("Waiting connections");
-            Socket socket;
+        ServerSocket serverSocket = new ServerSocket(6565);
+        System.out.println("Waiting connections");
+        Socket socket;
 		
 		while(true){
 			socket = null;

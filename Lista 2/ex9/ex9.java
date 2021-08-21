@@ -11,17 +11,17 @@ import org.json.JSONObject;
 
 public class ex9 {
 	public static void main(String[] args) throws IOException {
-            ServerSocket serverSocket = new ServerSocket(6565);
-            Socket socket;
-                
-            System.out.println("Waiting Connections");
-		
-            while(true){
-                socket = null;
-                socket = serverSocket.accept(); 
-                System.out.println("Conexao realizada!");	
-                new Ex9(socket).start();
-            }		
+        ServerSocket serverSocket = new ServerSocket(6565);
+        Socket socket;
+            
+        System.out.println("Waiting Connections");
+	
+        while(true){
+            socket = null;
+            socket = serverSocket.accept(); 
+            System.out.println("Conexao realizada!");	
+            new Ex9(socket).start();
+        }		
     }
 }
 
