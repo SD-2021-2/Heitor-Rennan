@@ -33,7 +33,7 @@ class Ex9 extends Thread {
 		thread = socket;
 	}
   
-	public void run() throws JSONException {
+	public void run() {
             try {
                 InputStream inputStream = thread.getInputStream();
                 BufferedReader message = new BufferedReader(new InputStreamReader (inputStream));
@@ -52,9 +52,11 @@ class Ex9 extends Thread {
                 
 		System.out.println("Conexao Finalizada!");
 				
-            }catch (IOException e) {
-                System.out.println("Erro na conexao!");
-            }
+	}catch (IOException e) {
+		System.out.println("Erro na conexao!");
+	} catch (JSONException e) {
+		System.out.println("Erro na conexao!");
+	}
 	}  
 }
     

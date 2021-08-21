@@ -32,7 +32,7 @@ class Ex6 extends Thread {
 		thread = socket;
 	}
   
-	public void run() throws JSONException {
+	public void run()  {
             try {
 		
                 InputStream inputStream = thread.getInputStream();
@@ -56,9 +56,11 @@ class Ex6 extends Thread {
 		
                 System.out.println("Conexao finalizada");
 				
-            }catch (IOException e) {
-			System.out.println("Erro na Conexao");
-            }
+			}catch (IOException e) {
+				System.out.println("Erro na conexao!");
+			} catch (JSONException e) {
+				System.out.println("Erro na conexao!");
+			}
 	}  
 }
 

@@ -34,7 +34,7 @@ class Ex7 extends Thread {
             thread = socket;
 	}
   
-	public void run() throws JSONException {
+	public void run() {
             try {
 		InputStream inputStream = thread.getInputStream();
                 BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
@@ -54,9 +54,11 @@ class Ex7 extends Thread {
 		
                 System.out.println("Conexao finalizada!");
 				
-            }catch (IOException e) {
-		System.out.println("Erro na conexao!");
-            }
+			}catch (IOException e) {
+				System.out.println("Erro na conexao!");
+			} catch (JSONException e) {
+				System.out.println("Erro na conexao!");
+			}
 	}  
 }
 
@@ -68,6 +70,6 @@ class Funcionario {
 		if(age >= 65 && time >= 30)
                     return "Permitido Aposentar!";
 		else
-                    return "Não Permitido Aposentar";
+                    return "Nï¿½o Permitido Aposentar";
 	}
 }

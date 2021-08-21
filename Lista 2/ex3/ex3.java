@@ -33,7 +33,7 @@ class Ex3 extends Thread {
 		thread = socket;
 	}
   
-	public void run() throws JSONException {
+	public void run() {
 		try {
 		InputStream inputStream = thread.getInputStream();
                 BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
@@ -54,9 +54,11 @@ class Ex3 extends Thread {
                 
 		System.out.println("Conexao finalizada!");
 				
-		}catch (IOException e) {
-			System.out.println("Conexao com problemas!");
-		}
+	}catch (IOException e) {
+		System.out.println("Erro na conexao!");
+	} catch (JSONException e) {
+		System.out.println("Erro na conexao!");
+	}
 	}  
 }
 
