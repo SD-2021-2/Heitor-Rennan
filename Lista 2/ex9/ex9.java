@@ -34,29 +34,29 @@ class Ex9 extends Thread {
 	}
   
 	public void run() {
-            try {
-                InputStream inputStream = thread.getInputStream();
-                BufferedReader message = new BufferedReader(new InputStreamReader (inputStream));
-		JSONObject json = new JSONObject(message.readLine());
+    	try {
+            InputStream inputStream = thread.getInputStream();
+            BufferedReader message = new BufferedReader(new InputStreamReader (inputStream));
+			JSONObject json = new JSONObject(message.readLine());
 
-		Card card = new Card();
+			Card card = new Card();
 
-		card.number = json.getInt("numero");
-		card.type = json.getInt("naipe");
-		
-		json.put("extenso", card.cartaEscrita());
+			card.number = json.getInt("numero");
+			card.type = json.getInt("naipe");
+			
+			json.put("extenso", card.cartaEscrita());
 
-		PrintStream retorno = new PrintStream(thread.getOutputStream());
-		retorno.println(json.toString());
-		thread.close();
-                
-		System.out.println("Conexao Finalizada!");
+			PrintStream retorno = new PrintStream(thread.getOutputStream());
+			retorno.println(json.toString());
+			thread.close();
+			
+			System.out.println("Conexao Finalizada!");
 				
-	}catch (IOException e) {
-		System.out.println("Erro na conexao!");
-	} catch (JSONException e) {
-		System.out.println("Erro na conexao!");
-	}
+		}catch (IOException e) {
+			System.out.println("Erro na conexao!");
+		} catch (JSONException e) {
+			System.out.println("Erro na conexao!");
+		}
 	}  
 }
     

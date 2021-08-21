@@ -40,16 +40,16 @@ class Ex8 extends Thread {
 		
                 InputStream inputStream = thread.getInputStream();
                 BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
-		JSONObject json = new JSONObject(messageReceived.readLine());
+				JSONObject json = new JSONObject(messageReceived.readLine());
 
-		ClienteParaCredito cliente = new ClienteParaCredito();
+				ClienteParaCredito cliente = new ClienteParaCredito();
                 cliente.saldo = json.getDouble("saldo");
 		
-		json.put("credito", cliente.creditoDisponivel());
+				json.put("credito", cliente.creditoDisponivel());
 
-		PrintStream resposta = new PrintStream(thread.getOutputStream());
+				PrintStream resposta = new PrintStream(thread.getOutputStream());
                 resposta.println(json.toString());
-		thread.close();
+				thread.close();
 		
                 System.out.println("Conexao finalizada!");
 				

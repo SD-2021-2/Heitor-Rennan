@@ -35,32 +35,28 @@ class Ex4 extends Thread {
   
     @Override
 	public void run() {
-            try {
-				InputStream inputStream = thread.getInputStream();
-                BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+        try {
+			InputStream inputStream = thread.getInputStream();
+            BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+
+			JSONObject json = new JSONObject(messageReceived.readLine());
+			Pessoa pessoa = new Pessoa();
+			pessoa.height = json.getDouble("altura");
+			pessoa.gender = json.getString("sexo");
 	
-				JSONObject json = new JSONObject(messageReceived.readLine());
-
-				Pessoa pessoa = new Pessoa();
-
-				pessoa.height = json.getDouble("altura");
-				pessoa.gender = json.getString("sexo");
-		
-				json.put("peso", pessoa.pesoParaSaude());
-
-				PrintStream resposta = new PrintStream(thread.getOutputStream());
-				resposta.println(json.toString());
-
-				thread.close();
-				System.out.println("Conexao finalizada!");
-		
-			}catch (IOException e) {
-				System.out.println("Erro na conexao!");
-			} catch (JSONException e) {
-				System.out.println("Erro na conexao!");
-			}
-			}  
-	}
+			json.put("peso", pessoa.pesoParaSaude());
+			PrintStream resposta = new PrintStream(thread.getOutputStream());
+			resposta.println(json.toString());
+			thread.close();
+			System.out.println("Conexao finalizada!");
+	
+		}catch (IOException e) {
+			System.out.println("Erro na conexao!");
+		} catch (JSONException e) {
+			System.out.println("Erro na conexao!");
+		}
+	}  
+}
 
 class Pessoa {
 	double height;

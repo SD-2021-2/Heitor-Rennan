@@ -36,26 +36,26 @@ class Ex5 extends Thread {
   
 	public void run()  {
 	    try {
-		InputStream inputStream = thread.getInputStream();
-                BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
-		JSONObject json = new JSONObject(messageReceived.readLine());
+			InputStream inputStream = thread.getInputStream();
+            BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+			JSONObject json = new JSONObject(messageReceived.readLine());
 
-		Nadador nadador = new Nadador();
+			Nadador nadador = new Nadador();
 
-		nadador.age = json.getInt("idade");
-		
-		json.put("categoria", nadador.categoriaNatacao());
-		PrintStream resposta = new PrintStream(thread.getOutputStream());
-		resposta.println(json.toString());
+			nadador.age = json.getInt("idade");
+			
+			json.put("categoria", nadador.categoriaNatacao());
+			PrintStream resposta = new PrintStream(thread.getOutputStream());
+			resposta.println(json.toString());
 
-		thread.close();
-		System.out.println("Conexao finalizada!");
+			thread.close();
+			System.out.println("Conexao finalizada!");
 	
-	}catch (IOException e) {
-		System.out.println("Erro na conexao!");
-	} catch (JSONException e) {
-		System.out.println("Erro na conexao!");
-	}
+		}catch (IOException e) {
+			System.out.println("Erro na conexao!");
+		} catch (JSONException e) {
+			System.out.println("Erro na conexao!");
+		}
 	}  
 }
 
