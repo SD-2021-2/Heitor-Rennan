@@ -10,18 +10,18 @@ import org.json.JSONObject;
 
 public class ex5 {
 	public static void main(String[] args) throws IOException {
-            ServerSocket serverSocket = new ServerSocket(6565);
-            Socket socket;
-            
-            System.out.println("Waiting connections");
+        ServerSocket serverSocket = new ServerSocket(6565);
+        Socket socket;
+        
+        System.out.println("Waiting connections");
 		
-            while(true){
-		socket = null;
-		socket = serverSocket.accept(); 
+        while(true){
+			socket = null;
+			socket = serverSocket.accept(); 
 		
-                System.out.println("Conexao aceita");
+          	System.out.println("Conexao aceita");
 			
-		new Ex5(socket).start();
+			new Ex5(socket).start();
 	    }		
     }
 }
@@ -37,16 +37,16 @@ class Ex5 extends Thread {
 	public void run()  {
 	    try {
 		InputStream inputStream = thread.getInputStream();
-                BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
-		JSONObject json_obj = new JSONObject(mensagem.readLine());
+                BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+		JSONObject json = new JSONObject(messageReceived.readLine());
 
 		Nadador nadador = new Nadador();
 
-		nadador.age = json_obj.getInt("idade");
+		nadador.age = json.getInt("idade");
 		
-		json_obj.put("categoria", nadador.categoriaNatacao());
+		json.put("categoria", nadador.categoriaNatacao());
 		PrintStream resposta = new PrintStream(thread.getOutputStream());
-		resposta.println(json_obj.toString());
+		resposta.println(json.toString());
 
 		thread.close();
 		System.out.println("Conexao finalizada!");

@@ -11,8 +11,9 @@ import org.json.JSONObject;
 public class ex1 {
 	public static void main(String[] args) throws IOException {
 		ServerSocket serverSocket = new ServerSocket(6565);
-		System.out.println("Servdor iniciado");
 		Socket socket;
+		
+		System.out.println("Servdor iniciado");
 		
 		while(true){
 			socket = null;

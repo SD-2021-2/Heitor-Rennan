@@ -13,7 +13,7 @@ public class ex4 {
 		ServerSocket serverSocket = new ServerSocket(6565);
 		Socket socket;
                 
-                System.out.println("Waiting Connections");
+        System.out.println("Waiting Connections");
 		
 		while(true){
 			socket = null;
@@ -37,19 +37,19 @@ class Ex4 extends Thread {
 	public void run() {
             try {
 				InputStream inputStream = thread.getInputStream();
-                BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
+                BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
 	
-				JSONObject json_obj = new JSONObject(mensagem.readLine());
+				JSONObject json = new JSONObject(messageReceived.readLine());
 
 				Pessoa pessoa = new Pessoa();
 
-				pessoa.height = json_obj.getDouble("altura");
-				pessoa.gender = json_obj.getString("sexo");
+				pessoa.height = json.getDouble("altura");
+				pessoa.gender = json.getString("sexo");
 		
-				json_obj.put("peso", pessoa.pesoParaSaude());
+				json.put("peso", pessoa.pesoParaSaude());
 
 				PrintStream resposta = new PrintStream(thread.getOutputStream());
-				resposta.println(json_obj.toString());
+				resposta.println(json.toString());
 
 				thread.close();
 				System.out.println("Conexao finalizada!");

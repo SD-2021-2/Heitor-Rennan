@@ -12,8 +12,9 @@ public class ex3 {
 	public static void main(String[] args) throws IOException {
 		
             ServerSocket serverSocket = new ServerSocket(6565);
-            System.out.println("Waiting connections");
             Socket socket;
+            
+			System.out.println("Waiting connections");
 		
 		while(true){
 			socket = null;
@@ -35,29 +36,29 @@ class Ex3 extends Thread {
   
 	public void run() {
 		try {
-		InputStream inputStream = thread.getInputStream();
-                BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
-		JSONObject json_obj = new JSONObject(mensagem.readLine());
+			InputStream inputStream = thread.getInputStream();
+            BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+			JSONObject json = new JSONObject(messageReceived.readLine());
 
-		NotasParaMedia notas = new NotasParaMedia();
+			NotasParaMedia notas = new NotasParaMedia();
 
-		notas.nota1 = json_obj.getDouble("n1");
-		notas.nota2 = json_obj.getDouble("n2");
-		notas.nota3 = json_obj.getDouble("n3");
-		
-		json_obj.put("resultado", notas.aprovado());
+			notas.nota1 = json.getDouble("n1");
+			notas.nota2 = json.getDouble("n2");
+			notas.nota3 = json.getDouble("n3");
+			
+			json.put("resultado", notas.aprovado());
 
-		PrintStream resposta = new PrintStream(thread.getOutputStream());
-		resposta.println(json_obj.toString());
+			PrintStream resposta = new PrintStream(thread.getOutputStream());
+			resposta.println(json.toString());
 
-		thread.close();
-                
-		System.out.println("Conexao finalizada!");
+			thread.close();
+			
+			System.out.println("Conexao finalizada!");
 				
-	}catch (IOException e) {
-		System.out.println("Erro na conexao!");
-	} catch (JSONException e) {
-		System.out.println("Erro na conexao!");
+		}catch (IOException e) {
+			System.out.println("Erro na conexao!");
+		} catch (JSONException e) {
+			System.out.println("Erro na conexao!");
 	}
 	}  
 }

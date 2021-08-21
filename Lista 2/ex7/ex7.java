@@ -37,18 +37,18 @@ class Ex7 extends Thread {
 	public void run() {
             try {
 		InputStream inputStream = thread.getInputStream();
-                BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
-		JSONObject json_obj = new JSONObject(mensagem.readLine());
+                BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+		JSONObject json = new JSONObject(messageReceived.readLine());
 
 		Funcionario funcionario = new Funcionario();
 
-		funcionario.age = json_obj.getInt("idade");
-		funcionario.time = json_obj.getInt("tempo");
+		funcionario.age = json.getInt("idade");
+		funcionario.time = json.getInt("tempo");
 		
-		json_obj.put("aposentado", funcionario.podeAposentar());
+		json.put("aposentado", funcionario.podeAposentar());
 
 		PrintStream resposta = new PrintStream(thread.getOutputStream());
-		resposta.println(json_obj.toString());
+		resposta.println(json.toString());
 
 		thread.close();
 		

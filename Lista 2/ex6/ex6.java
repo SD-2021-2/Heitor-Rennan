@@ -33,34 +33,33 @@ class Ex6 extends Thread {
 	}
   
 	public void run()  {
-            try {
+    try {
 		
-                InputStream inputStream = thread.getInputStream();
-                BufferedReader mensagem = new BufferedReader(new InputStreamReader (inputStream));
-	
-		JSONObject json_obj = new JSONObject(mensagem.readLine());
+        InputStream inputStream = thread.getInputStream();
+        BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));		
+		JSONObject json = new JSONObject(messageReceived.readLine());
 
 		Funcionario funcionario = new Funcionario();
 
-		funcionario.name = json_obj.getString("nome");
-		funcionario.nvl = json_obj.getString("nivel");
-		funcionario.salario = json_obj.getDouble("salario");
-		funcionario.deps = json_obj.getInt("dependentes");
+		funcionario.name = json.getString("nome");
+		funcionario.nvl = json.getString("nivel");
+		funcionario.salario = json.getDouble("salario");
+		funcionario.deps = json.getInt("dependentes");
 		
-		json_obj.put("salario liquido", funcionario.salarioLiquido());
+		json.put("salario liquido", funcionario.salarioLiquido());
 
 		PrintStream resposta = new PrintStream(thread.getOutputStream());
-		resposta.println(json_obj.toString());
+		resposta.println(json.toString());
 
 		thread.close();
 		
-                System.out.println("Conexao finalizada");
+        System.out.println("Conexao finalizada");
 				
-			}catch (IOException e) {
-				System.out.println("Erro na conexao!");
-			} catch (JSONException e) {
-				System.out.println("Erro na conexao!");
-			}
+	}catch (IOException e) {
+		System.out.println("Erro na conexao!");
+	} catch (JSONException e) {
+		System.out.println("Erro na conexao!");
+	}
 	}  
 }
 
