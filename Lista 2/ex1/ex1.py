@@ -23,6 +23,6 @@ msg = json.dumps(obj)
 
 skt.sendall((msg+"\n").encode())
 
-obj = skt.recv(1024)
-data = json.loads(obj.decode())
+res = skt.recv(1024)
+data = json.loads(res.decode())
 print(data["reajuste"])
