@@ -34,6 +34,6 @@ server.on('connection', (socket)=> {
   });
 });
 
-server.listen(6565, ()=> {
+server.listen(4000, ()=> {
   console.log('Server opened on port: ', server.address().port);
 });

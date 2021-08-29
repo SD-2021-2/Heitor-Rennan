@@ -9,14 +9,8 @@ skt.connect(dest)
 
 nome = input('Informe nome do funcionario\n')
 
-cargo = input('Informe cargo do funcionario\n')
-
-salario = input('Informe salario do funcionario\n')
-
 obj = {
-    "nome": nome,
-    "cargo": cargo,
-    "salario": salario
+    "nome": nome
 }
 
 msg = json.dumps(obj)
