@@ -4,71 +4,62 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AppEx1 {
 	public static void main(String[] args) throws IOException {
-		ServerSocket serverSocket = new ServerSocket(6565);
-		Socket socket;
-		
-		System.out.println("Servdor iniciado");
+		ServerSocket serverSocketCliente = new ServerSocket(6565);
+                Socket socketCliente;
+
+		System.out.println("Servidor iniciado");
 		
 		while(true){
-			socket = null;
-			socket = serverSocket.accept(); 
+			socketCliente = null;
+			socketCliente = serverSocketCliente.accept(); 
 			System.out.println("Socket conectado!");
 			
-			new Ex1(socket).start();
+			new Ex1(socketCliente).start();
 		}	
-                
-                
-                // Conectar com Manager socket 4000 e passar o valor 
-                /*/ {
-                    "exerc": 1,
-                    "data": {
-              
-                    }
-                /*/
-                }
         }
+}
 
 
 class Ex1 extends Thread {
 
-	Socket thread;
-  
+	Socket socketCliente;
+        
 	Ex1 (Socket socket) throws IOException {
-		thread = socket;
+		socketCliente = socket;
 	}
   
 	
 	public void run() {
 		try {
-			InputStream inputStream = thread.getInputStream();
+			InputStream inputStream = socketCliente.getInputStream();
                         BufferedReader textoRecebidoParaJson = new BufferedReader(new InputStreamReader (inputStream));
 			JSONObject json = new JSONObject(textoRecebidoParaJson.readLine());
-
-			Funcionario funcionario = new Funcionario();
-
-			funcionario.name = json.getString("nome");
-			funcionario.funcao = json.getString("cargo");
-			funcionario.salario = json.getDouble("salario");
-			
-			json.put("reajuste", funcionario.reajuste());
-
-			PrintStream retornoClient = new PrintStream(thread.getOutputStream());
+                        
+                        Socket socketManagerDB = new Socket("127.0.0.1", 4000);
+                        
+                        try (OutputStreamWriter out = new OutputStreamWriter(
+                            socketManagerDB.getOutputStream(), StandardCharsets.UTF_8)) {
+                            out.write(json.toString());
+                        }
+                     
+			PrintStream retornoClient = new PrintStream(socketCliente.getOutputStream());
 			retornoClient.println(json.toString());
 
-			thread.close();		
+			socketCliente.close();		
 			System.out.println("Conexao finalizada!");
 		
-		}catch (IOException e) {
-			System.out.println("Erro na conexao!");
-		} catch (JSONException e) {
+		}catch (IOException | JSONException e) {
 			System.out.println("Erro na conexao!");
 		}
 	}  
@@ -78,17 +69,5 @@ class Funcionario {
 	String name;
 	String funcao;
 	double salario;
-	
-	String reajuste(){
-		String retornoParaClient;
-		
-		if(funcao.equals("operador"))
-			retornoParaClient = " Novo salario " +salario * 1.2;
-		else if(funcao.equals("programador"))
-			retornoParaClient = " Novo salario " +salario * 1.18;
-		else
-			retornoParaClient = " Sem reajuste";
 
-		return "Funcionario " + name + " " + retornoParaClient;
-	}
 }
