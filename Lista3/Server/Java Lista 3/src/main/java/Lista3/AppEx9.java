@@ -1,3 +1,5 @@
+package Lista3;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class ex9 {
+public class AppEx9 {
 	public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(6565);
         Socket socket;

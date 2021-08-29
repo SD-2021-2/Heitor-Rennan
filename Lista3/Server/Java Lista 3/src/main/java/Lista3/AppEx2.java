@@ -1,3 +1,5 @@
+package Lista3;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.net.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ex2 {
+public class AppEx2 {
 	public static void main(String[] args) throws IOException {
 		
         ServerSocket serverSocket = new ServerSocket(6565);
@@ -36,10 +38,10 @@ class Ex2 extends Thread {
 	public void run() {
     try {
 		InputStream inputStream = thread.getInputStream();
-        BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
+                BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
 		JSONObject json = new JSONObject(messageReceived.readLine());
 
-		Pessoa pessoa = new Pessoa();
+		PessoaEx2 pessoa = new PessoaEx2();
 
 		pessoa.name = json.getString("nome");
 		pessoa.gender = json.getString("sexo");
@@ -61,7 +63,7 @@ class Ex2 extends Thread {
 	}  
 }
 
-class Pessoa {
+class PessoaEx2 {
 	String name;
 	String gender;
 	int age;

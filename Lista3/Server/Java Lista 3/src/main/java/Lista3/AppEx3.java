@@ -1,3 +1,5 @@
+package Lista3;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,73 +10,71 @@ import java.net.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ex5 {
+public class AppEx3 {
 	public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(6565);
-        Socket socket;
-        
-        System.out.println("Waiting connections");
 		
-        while(true){
+        ServerSocket serverSocket = new ServerSocket(6565);
+    	Socket socket;
+         
+		System.out.println("Waiting connections");
+		
+		while(true){
 			socket = null;
 			socket = serverSocket.accept(); 
-		
-          	System.out.println("Conexao aceita");
+			System.out.println("Conexao realizada!");
 			
-			new Ex5(socket).start();
-	    }		
+			new Ex3(socket).start();
+		}		
     }
 }
 
-class Ex5 extends Thread {
+class Ex3 extends Thread {
 
 	Socket thread;
   
-	Ex5 (Socket socket) throws IOException {
+	Ex3 (Socket socket) throws IOException {
 		thread = socket;
 	}
   
-	public void run()  {
-	    try {
+	public void run() {
+		try {
 			InputStream inputStream = thread.getInputStream();
             BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
 			JSONObject json = new JSONObject(messageReceived.readLine());
 
-			Nadador nadador = new Nadador();
+			NotasParaMedia notas = new NotasParaMedia();
 
-			nadador.age = json.getInt("idade");
+			notas.nota1 = json.getDouble("n1");
+			notas.nota2 = json.getDouble("n2");
+			notas.nota3 = json.getDouble("n3");
 			
-			json.put("categoria", nadador.categoriaNatacao());
+			json.put("resultado", notas.aprovado());
+
 			PrintStream resposta = new PrintStream(thread.getOutputStream());
 			resposta.println(json.toString());
 
 			thread.close();
+			
 			System.out.println("Conexao finalizada!");
-	
+				
 		}catch (IOException e) {
 			System.out.println("Erro na conexao!");
 		} catch (JSONException e) {
 			System.out.println("Erro na conexao!");
-		}
+	}
 	}  
 }
 
-class Nadador {
-	int age;
+class NotasParaMedia {
+	double nota1, nota2, nota3;
 	
-	String categoriaNatacao(){
-		if(age >= 18)
-			return "Categoria Adulto";
-		else if(age >= 14)
-			return "Categoria Juvenil B";
-		else if(age >= 11)
-			return "Categoria Juvenil A";
-		else if(age >= 8)
-			return "Categoria Infantil B";
-		else if(age >= 5)
-			return "Categoria Infantil A";
+	String aprovado(){
+		
+		double media = (nota1+nota2)/2;
+		if(media >= 7.0 || (media > 3.0 && (media+nota3)/2 >= 5.0))
+			return "Aprovado!";
 		else
-			return "Idade Invalida!";
-	
-	}
+			return "Reprovado!";
+		
+        }
 }

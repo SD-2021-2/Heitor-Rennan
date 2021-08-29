@@ -10,7 +10,7 @@ import java.net.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ex1 {
+public class AppEx1 {
 	public static void main(String[] args) throws IOException {
 		ServerSocket serverSocket = new ServerSocket(6565);
 		Socket socket;
@@ -23,9 +23,19 @@ public class ex1 {
 			System.out.println("Socket conectado!");
 			
 			new Ex1(socket).start();
-		}		
-    }
-}
+		}	
+                
+                
+                // Conectar com Manager socket 4000 e passar o valor 
+                /*/ {
+                    "exerc": 1,
+                    "data": {
+              
+                    }
+                /*/
+                }
+        }
+
 
 class Ex1 extends Thread {
 
@@ -39,7 +49,7 @@ class Ex1 extends Thread {
 	public void run() {
 		try {
 			InputStream inputStream = thread.getInputStream();
-            BufferedReader textoRecebidoParaJson = new BufferedReader(new InputStreamReader (inputStream));
+                        BufferedReader textoRecebidoParaJson = new BufferedReader(new InputStreamReader (inputStream));
 			JSONObject json = new JSONObject(textoRecebidoParaJson.readLine());
 
 			Funcionario funcionario = new Funcionario();

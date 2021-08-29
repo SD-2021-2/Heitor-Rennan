@@ -1,3 +1,5 @@
+package Lista3;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.net.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ex7 {
+public class AppEx7 {
 	public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(6565);
         Socket socket;
@@ -40,7 +42,7 @@ class Ex7 extends Thread {
                 BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));
 				JSONObject json = new JSONObject(messageReceived.readLine());
 
-				Funcionario funcionario = new Funcionario();
+				FuncionarioEx7 funcionario = new FuncionarioEx7();
 
 				funcionario.age = json.getInt("idade");
 				funcionario.time = json.getInt("tempo");
@@ -62,7 +64,7 @@ class Ex7 extends Thread {
 	}  
 }
 
-class Funcionario {
+class FuncionarioEx7 {
 	int age;
 	int time;
 	

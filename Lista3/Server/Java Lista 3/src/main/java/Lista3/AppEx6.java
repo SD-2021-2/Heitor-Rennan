@@ -1,3 +1,5 @@
+package Lista3;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.net.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ex6 {
+public class AppEx6 {
 	public static void main(String[] args) throws IOException {
 		ServerSocket ss = new ServerSocket(6565);
 		System.out.println("Waiting Connections");
@@ -39,7 +41,7 @@ class Ex6 extends Thread {
         BufferedReader messageReceived = new BufferedReader(new InputStreamReader (inputStream));		
 		JSONObject json = new JSONObject(messageReceived.readLine());
 
-		Funcionario funcionario = new Funcionario();
+		FuncionarioEx6 funcionario = new FuncionarioEx6();
 
 		funcionario.name = json.getString("nome");
 		funcionario.nvl = json.getString("nivel");
@@ -63,7 +65,7 @@ class Ex6 extends Thread {
 	}  
 }
 
-class Funcionario {
+class FuncionarioEx6 {
 	String name;
 	double salario;
 	String nvl;
