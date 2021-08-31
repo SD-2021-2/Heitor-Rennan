@@ -43,18 +43,25 @@ class Ex1 extends Thread {
 	public void run() {
 		try {
 			InputStream inputStream = socketCliente.getInputStream();
-                        BufferedReader textoRecebidoParaJson = new BufferedReader(new InputStreamReader (inputStream));
-			JSONObject json = new JSONObject(textoRecebidoParaJson.readLine());
+                        BufferedReader textoRecebidoParaJsonDoCliente = new BufferedReader(new InputStreamReader (inputStream));
+			JSONObject json = new JSONObject(textoRecebidoParaJsonDoCliente.readLine());
                         
                         Socket socketManagerDB = new Socket("127.0.0.1", 4000);
+                        System.out.println("Conectado ao DB Manager!");
                         
                         try (OutputStreamWriter out = new OutputStreamWriter(
                             socketManagerDB.getOutputStream(), StandardCharsets.UTF_8)) {
                             out.write(json.toString());
                         }
                      
+                        InputStream inputStreamDBManager = socketManagerDB.getInputStream();
+                        BufferedReader textoDBManager = new BufferedReader(new InputStreamReader (inputStream));
+			JSONObject jsonDBManager = new JSONObject(textoDBManager.readLine());
+                        
+                        socketManagerDB.close();
+                        
 			PrintStream retornoClient = new PrintStream(socketCliente.getOutputStream());
-			retornoClient.println(json.toString());
+			retornoClient.println(jsonDBManager.toString());
 
 			socketCliente.close();		
 			System.out.println("Conexao finalizada!");
