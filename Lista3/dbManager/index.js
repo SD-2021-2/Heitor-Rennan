@@ -15,6 +15,13 @@ server.on('connection', (socket)=> {
         console.log("entrou no if");
         switch(data.exerc) {
           case 1: results = await exercsController.exerc1(data.data); break;
+          case 2: results = await exercsController.exerc2(data.data); break;
+          case 3: results = await exercsController.exerc3(data.data); break;
+          case 4: results = await exercsController.exerc4(data.data); break;
+          case 5: results = await exercsController.exerc5(data.data); break;
+          case 6: results = await exercsController.exerc6(data.data); break;
+          case 7: results = await exercsController.exerc7(data.data); break;
+          case 8: results = await exercsController.exerc8(data.data); break;
           default: socket.end('Out of bounds'); break;
         }
         console.log(results);
