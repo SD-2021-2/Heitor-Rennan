@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -49,32 +51,23 @@ class Ex1 extends Thread {
                         Socket socketManagerDB = new Socket("127.0.0.1", 4000);
                         System.out.println("Conectado ao DB Manager!");
                         
-                        try (OutputStreamWriter out = new OutputStreamWriter(
+                        try (OutputStreamWriter outS = new OutputStreamWriter(
                             socketManagerDB.getOutputStream(), StandardCharsets.UTF_8)) {
-                            out.write(json.toString());
+                            outS.write(json.toString());
                         }
-                     
-                        InputStream inputStreamDBManager = socketManagerDB.getInputStream();
-                        BufferedReader textoDBManager = new BufferedReader(new InputStreamReader (inputStream));
-			JSONObject jsonDBManager = new JSONObject(textoDBManager.readLine());
+                         
+                         
+                           
                         
-                        socketManagerDB.close();
-                        
-			PrintStream retornoClient = new PrintStream(socketCliente.getOutputStream());
-			retornoClient.println(jsonDBManager.toString());
-
+                        socketManagerDB.close();  
 			socketCliente.close();		
 			System.out.println("Conexao finalizada!");
 		
-		}catch (IOException | JSONException e) {
-			System.out.println("Erro na conexao!");
+		}catch (IOException e){
+                    System.out.println("Erro na conexao!");
+                    
+                } catch (JSONException e) {
+		   System.out.println("Erro no JSON!");
 		}
 	}  
-}
-
-class Funcionario {
-	String name;
-	String funcao;
-	double salario;
-
 }
