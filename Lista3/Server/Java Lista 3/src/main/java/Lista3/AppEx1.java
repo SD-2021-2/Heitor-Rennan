@@ -44,6 +44,7 @@ class Ex1 extends Thread {
 	}
   
 	
+        @SuppressWarnings("empty-statement")
 	public void run() {
 		try {
 			InputStream inputStream = socketCliente.getInputStream();
@@ -58,26 +59,15 @@ class Ex1 extends Thread {
                         dataObj.put("exerc", 1);
                         dataObj.put("data", json); 
                         
-                        try (OutputStreamWriter outS = new OutputStreamWriter(
-                            socketManagerDB.getOutputStream(), StandardCharsets.UTF_8)) {
-                            outS.write(dataObj.toString());
-                        }
+                        OutputStreamWriter outS = new OutputStreamWriter(socketManagerDB.getOutputStream(), StandardCharsets.UTF_8);
+                        outS.write(dataObj.toString());
                         
-                        System.out.println("Passou");
+                        
                         
                         InputStream inputStreamDB = socketManagerDB.getInputStream();
-                        
-                        System.out.println("Passou");
-                        
-                        Thread.sleep(4000L);
-                        
-                        BufferedReader textoRecebidoDB = new BufferedReader(new InputStreamReader (inputStreamDB));
-                        
-                        System.out.println(textoRecebidoDB.readLine());
-                        
+                        BufferedReader textoRecebidoDB = new BufferedReader(new InputStreamReader (inputStreamDB));                     
                         JSONObject jsonDB = new JSONObject(textoRecebidoDB.readLine());
                         
-                        Thread.sleep(4000L);
                         
                         Funcionario funcionario = new Funcionario();
 
@@ -100,8 +90,7 @@ class Ex1 extends Thread {
                 } catch (JSONException e) {
 		   System.out.println("Erro no JSON!");
 		
-                } catch (InterruptedException ex) {
-                Logger.getLogger(Ex1.class.getName()).log(Level.SEVERE, null, ex);
+               
             }
 	}  
         
