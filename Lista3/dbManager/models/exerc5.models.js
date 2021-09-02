@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Exerc5Schema = new mongoose.Schema({
-  age: {
+  idade: {
     type: Number
   },
   categoria: {

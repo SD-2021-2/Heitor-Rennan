@@ -12,7 +12,7 @@ exports.exerc1 = async function (query) {
 
   try {
     console.log(query);
-    var exerc1 = await Exerc1.findOne({ name: { $regex: new RegExp(query.name, "i") } });
+    var exerc1 = await Exerc1.findOne(query);
     return exerc1;
   } catch (e) {
     // Log Errors

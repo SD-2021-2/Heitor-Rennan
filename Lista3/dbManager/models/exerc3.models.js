@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Exerc3Schema = new mongoose.Schema({
-  name: {
+  nome: {
     type: String
   },
   n1: {

@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const Exerc1Schema = new mongoose.Schema({
-  name: {
+  nome: {
     type: String
   },
-  role: {
+  cargo: {
     type: String
   },
-  salary: {
+  salario: {
     type: Number
   }
 },

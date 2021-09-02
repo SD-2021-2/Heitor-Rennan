@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
 const Exerc6Schema = new mongoose.Schema({
-  name: {
+  nome: {
     type: String
   },
-  level: {
+  nivel: {
     type: String
   },
-  salary: {
+  salario: {
     type: Number
   },
-  dependencies: {
+  dependentes: {
     type: Number
   }
 },

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const Exerc8Schema = new mongoose.Schema({
-  name: {
+  nome: {
     type: String
   },
-  balance: {
+  saldo: {
     type: String
   }
 },

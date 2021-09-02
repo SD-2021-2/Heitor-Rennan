@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const Exerc7Schema = new mongoose.Schema({
-  name: {
+  nome: {
     type: String
   },
-  age: {
+  idade: {
     type: String
   },
-  service_time: {
+  tempo_de_servico: {
     type: Number
   }
 },
