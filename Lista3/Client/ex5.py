@@ -7,10 +7,10 @@ skt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 dest = (HOST, PORT)
 skt.connect(dest)
 
-idade = input('Informe a idade\n')
+nome = input('Informe a nome\n')
 
 obj = {
-    "idade": idade
+    "nome": nome
 }
 
 msg = json.dumps(obj)
