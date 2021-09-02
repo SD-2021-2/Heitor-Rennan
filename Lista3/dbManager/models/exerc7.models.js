@@ -5,7 +5,7 @@ const Exerc7Schema = new mongoose.Schema({
     type: String
   },
   idade: {
-    type: String
+    type: Number
   },
   tempo_de_servico: {
     type: Number

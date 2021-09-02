@@ -5,7 +5,7 @@ const Exerc8Schema = new mongoose.Schema({
     type: String
   },
   saldo: {
-    type: String
+    type: Number
   }
 },
 {
