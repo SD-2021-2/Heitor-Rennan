@@ -26,6 +26,7 @@ server.on('connection', (socket)=> {
         }
         console.log(results);
         socket.write(results);
+        socket.end();
       }
       else {
         socket.end('Bad Request');

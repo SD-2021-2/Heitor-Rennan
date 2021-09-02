@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -60,9 +61,9 @@ class Ex1 extends Thread {
                         dataObj.put("data", json); 
                         
                         OutputStreamWriter outS = new OutputStreamWriter(socketManagerDB.getOutputStream(), StandardCharsets.UTF_8);
-                        outS.write(dataObj.toString());
-                        
-                        
+                        BufferedWriter bw = new BufferedWriter(outS);
+                        bw.write(dataObj.toString());
+                        bw.flush();
                         
                         InputStream inputStreamDB = socketManagerDB.getInputStream();
                         BufferedReader textoRecebidoDB = new BufferedReader(new InputStreamReader (inputStreamDB));                     
@@ -78,9 +79,10 @@ class Ex1 extends Thread {
                         jsonDB.put("reajuste", funcionario.reajuste());
                         
                         PrintStream retornoClient = new PrintStream(socketCliente.getOutputStream());
-			retornoClient.println(json.toString());
+			retornoClient.println(jsonDB.toString());
                         
-                        socketManagerDB.close();  
+                        bw.close();
+                        socketManagerDB.close(); 
 			socketCliente.close();		
 			System.out.println("Conexao finalizada!");
 		
