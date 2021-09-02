@@ -12,6 +12,8 @@ import static java.lang.System.out;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,14 +56,39 @@ class Ex1 extends Thread {
                         JSONObject dataObj = new JSONObject();
                         
                         dataObj.put("exerc", 1);
-                        dataObj.put("data", json);
-                        
-                        System.out.println(dataObj.toString());
+                        dataObj.put("data", json); 
                         
                         try (OutputStreamWriter outS = new OutputStreamWriter(
                             socketManagerDB.getOutputStream(), StandardCharsets.UTF_8)) {
                             outS.write(dataObj.toString());
                         }
+                        
+                        System.out.println("Passou");
+                        
+                        InputStream inputStreamDB = socketManagerDB.getInputStream();
+                        
+                        System.out.println("Passou");
+                        
+                        Thread.sleep(4000L);
+                        
+                        BufferedReader textoRecebidoDB = new BufferedReader(new InputStreamReader (inputStreamDB));
+                        
+                        System.out.println(textoRecebidoDB.readLine());
+                        
+                        JSONObject jsonDB = new JSONObject(textoRecebidoDB.readLine());
+                        
+                        Thread.sleep(4000L);
+                        
+                        Funcionario funcionario = new Funcionario();
+
+			funcionario.name = jsonDB.getString("nome");
+			funcionario.funcao = jsonDB.getString("cargo");
+			funcionario.salario = jsonDB.getDouble("salario");
+                        
+                        jsonDB.put("reajuste", funcionario.reajuste());
+                        
+                        PrintStream retornoClient = new PrintStream(socketCliente.getOutputStream());
+			retornoClient.println(json.toString());
                         
                         socketManagerDB.close();  
 			socketCliente.close();		
@@ -72,6 +99,28 @@ class Ex1 extends Thread {
                     
                 } catch (JSONException e) {
 		   System.out.println("Erro no JSON!");
-		}
+		
+                } catch (InterruptedException ex) {
+                Logger.getLogger(Ex1.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}  
+        
+        class Funcionario {
+	String name;
+	String funcao;
+	double salario;
+	
+	String reajuste(){
+		String retornoParaClient;
+		
+		if(funcao.equals("operador"))
+			retornoParaClient = " Novo salario " +salario * 1.2;
+		else if(funcao.equals("programador"))
+			retornoParaClient = " Novo salario " +salario * 1.18;
+		else
+			retornoParaClient = " Sem reajuste";
+
+		return "Funcionario " + name + " " + retornoParaClient;
+	}
+}
 }
