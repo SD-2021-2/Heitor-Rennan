@@ -51,13 +51,17 @@ class Ex1 extends Thread {
                         Socket socketManagerDB = new Socket("127.0.0.1", 4000);
                         System.out.println("Conectado ao DB Manager!");
                         
+                        JSONObject dataObj = new JSONObject();
+                        
+                        dataObj.put("exerc", 1);
+                        dataObj.put("data", json);
+                        
+                        System.out.println(dataObj.toString());
+                        
                         try (OutputStreamWriter outS = new OutputStreamWriter(
                             socketManagerDB.getOutputStream(), StandardCharsets.UTF_8)) {
-                            outS.write(json.toString());
+                            outS.write(dataObj.toString());
                         }
-                         
-                         
-                           
                         
                         socketManagerDB.close();  
 			socketCliente.close();		
