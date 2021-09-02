@@ -6,9 +6,6 @@ const Exerc5Schema = new mongoose.Schema({
   },
   idade: {
     type: Number
-  },
-  categoria: {
-    type: String
   }
 },
 {
