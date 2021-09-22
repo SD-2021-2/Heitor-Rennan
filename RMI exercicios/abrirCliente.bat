@@ -1,0 +1,3 @@
+java rmiCodigo.Cliente
+
+exit
